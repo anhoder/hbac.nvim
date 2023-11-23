@@ -64,9 +64,11 @@ M.autoclose.setup = function()
 				local buffer = buffers[i]
 				if not utils.buf_autoclosable(buffer) then
 					break
-				elseif reserved_num > 0 then
-					reserved_num = reserved_num - 1
+				elseif reserved_num <= 0 then
+					vim.notify("num: " .. reserved_num)
 					config.values.close_command(buffer)
+				else
+					reserved_num = reserved_num - 1
 				end
 			end
 		end,
