@@ -59,13 +59,17 @@ M.autoclose.setup = function()
 				return a < b
 			end)
 
+			local reserved_num = config.values.reserved_unedited_num or 1
 			for i = 1, buffers_to_close, 1 do
 				local buffer = buffers[i]
 				if not utils.buf_autoclosable(buffer) then
 					break
-				else
-					config.values.close_command(buffer)
 				end
+				if reserved_num <= 0 then
+					break
+				end
+				reserved_num = reserved_num - 1
+				config.values.close_command(buffer)
 			end
 		end,
 	})
@@ -78,7 +82,6 @@ M.autoclose.disable = function()
 		vim.api.nvim_del_augroup_by_name(M.autoclose.name)
 	end)
 end
-
 
 M.autopin.setup = function()
 	local id = vim.api.nvim_create_augroup(M.autopin.name, {
