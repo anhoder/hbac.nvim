@@ -13,7 +13,7 @@ local M = {
 
 M.autoclose.setup = function()
 	state.autoclose_enabled = true
-	vim.api.nvim_create_autocmd({ "BufAdd" }, {
+	vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 		group = vim.api.nvim_create_augroup(M.autoclose.name, { clear = true }),
 		pattern = { "*" },
 		callback = function()
