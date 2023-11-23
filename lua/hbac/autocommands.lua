@@ -65,7 +65,7 @@ M.autoclose.setup = function()
 				if not utils.buf_autoclosable(buffer) then
 					break
 				elseif reserved_num > 0 then
-					thenreserved_num = reserved_num - 1
+					reserved_num = reserved_num - 1
 					config.values.close_command(buffer)
 				end
 			end
