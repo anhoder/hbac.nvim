@@ -90,7 +90,7 @@ M.autopin.setup = function()
 		group = id,
 		pattern = { "*" },
 		callback = function()
-			vim.api.nvim_create_autocmd({ "InsertEnter", "BufModifiedSet" }, {
+			vim.api.nvim_create_autocmd({ "InsertEnter", "BufModifiedSet", "BufWrite" }, {
 				buffer = 0,
 				once = true,
 				callback = function()
