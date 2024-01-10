@@ -2,6 +2,9 @@ local state = require("hbac.state")
 local utils = require("hbac.utils")
 local config = require("hbac.config")
 
+-- 第一次不处理
+local first_run = true
+
 local M = {
 	autoclose = {
 		name = "hbac_autoclose",
@@ -17,6 +20,10 @@ M.autoclose.setup = function()
 		group = vim.api.nvim_create_augroup(M.autoclose.name, { clear = true }),
 		pattern = { "*" },
 		callback = function()
+			if first_run then
+				first_run = false
+				return
+			end
 			local current_buf = vim.api.nvim_get_current_buf()
 			local buftype = vim.api.nvim_buf_get_option(current_buf, "buftype")
 			-- if the buffer is not a file - do nothing
