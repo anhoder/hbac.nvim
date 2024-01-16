@@ -90,6 +90,16 @@ M.autopin.setup = function()
 			})
 		end,
 	})
+	vim.api.nvim_create_autocmd({ "BufDelete" }, {
+		group = id,
+		pattern = { "*" },
+		callback = function(event)
+			if not state.is_pinned(event.buf) then
+				return
+			end
+			state.toggle_pin(event.buf)
+		end,
+	})
 end
 
 return M
